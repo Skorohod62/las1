@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дополнительные таблицы</title>
+</head>
+<body>
+
+<div class="container">
+  <h2>Дополнительные таблицы</h2>
+  <form id="registrationForm">
+    <label for="name">Имя:</label>
+    <input type="text" id="name" name="name" required pattern="[a-zA-Zа-яА-ЯЁё\s]+" title="Только буквы и пробелы">
+    <p>
+    <label for="email">Электронная почта:</label>
+    <input type="email" id="email" name="email" required>
+    </p>
+    <p>
+    <label for="birthdate">Дата рождения:</label>
+    <input type="date" id="birthdate" name="birthdate" required>
+    </p>
+    <button type="button" onclick="register()">Зарегистрироваться</button>
+  </form>
+
+  <div id="output"></div>
+  <div id="output2"></div>
+</div>
+
+<script>
+  function register() {
+    var nameValue = document.getElementById('name').value;
+    var emailValue = document.getElementById('email').value;
+    var birthdateValue = document.getElementById('birthdate').value;
+
+    if (!validate()) {
+      return;
+    }
+
+    document.cookie = "name=" + encodeURIComponent(nameValue);
+    document.cookie = "email=" + encodeURIComponent(emailValue);
+    document.cookie = "birthdate=" + encodeURIComponent(birthdateValue);
+
+    var outputDiv = document.getElementById('output');
+    outputDiv.innerHTML = "<h3>Значения из cookie:</h3>" +
+      "<p>Имя: " + nameValue + "</p>" +
+      "<p>Электронная почта: " + emailValue + "</p>" +
+      "<p>Дата рождения: " + birthdateValue + "</p>";
+
+    document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "birthdate=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+
+    var userData = {
+      name: nameValue,
+      email: emailValue,
+      birthdate: birthdateValue
+    };
+    var jsonUserData = JSON.stringify(userData);
+
+    var outputDiv = document.getElementById('output2');
+    outputDiv.innerHTML = "<h3>Данные в JSON формате:</h3>" +
+      "<p>" + jsonUserData + "</p>";
+
+    document.getElementById('registrationForm').reset();
+  } 
+
+  function validate() {
+    var nameInput = document.getElementById('name');
+    var emailInput = document.getElementById('email');
+
+    if (nameInput.value.trim() === "") {
+      alert("Пожалуйста, введите имя.");
+      return false;
+    }
+
+    if (emailInput.value.trim() === "") {
+      alert("Пожалуйста, введите электронную почту.");
+      return false;
+    }
+
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(emailInput.value)) {
+      alert("Пожалуйста, введите правильный адрес электронной почты.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+</body>
+</html>

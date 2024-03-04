@@ -1,0 +1,32 @@
+{
+    "name": "revalto/laravel-rabbitmq",
+    "description": "Laravel RabbitMQ",
+    "keywords": ["laravel", "model", "cache", "database"],
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samuel Revalto",
+            "email": "samuel.nestro@mail.ru",
+            "homepage": "https://github.com/Revalto"
+        }
+    ],
+    "require": {
+        "php": "^8.1|^8.2",
+        "nette/php-generator": "^4.0",
+        "doctrine/dbal": "^3.6.0",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Revalto\\RabbitMQ\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+              "VladimirYuldashev\\LaravelQueueRabbitMQ\\LaravelQueueRabbitMQServiceProvider"
+            ]
+        }
+    }
+}
